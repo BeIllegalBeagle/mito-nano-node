@@ -15,6 +15,7 @@ defmodule MitoNode.Client do
       socket_connect_timeout: 6000,
       socket_recv_timeout: 5000
     }
+    IO.inspect tcp_conn
     IO.inspect "I wanna rock your worldddd"
     # WebSockex.start_link("ws://localhost:7078", __MODULE__, state)
   end
