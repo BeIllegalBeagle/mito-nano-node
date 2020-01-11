@@ -3,7 +3,7 @@ defmodule MitoNode.Client do
 
   def start_link(state) do
     IO.inspect "I wanna be your girlll"
-    WebSockex.start_link("ws://localhost:7076", __MODULE__, state)
+    WebSockex.start_link("localhost:7076", __MODULE__, state)
   end
 
   def handle_connect(conn, state) do
