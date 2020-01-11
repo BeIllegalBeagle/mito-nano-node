@@ -1,7 +1,7 @@
 defmodule MitoNode.WorkGenerator do
   use Tesla
 
-  plug Tesla.Middleware.BaseUrl, "::1:7076"
+  plug Tesla.Middleware.BaseUrl, "http://[::1]:7076/"
   plug Tesla.Middleware.Headers, [{"authorization", "token xyz"}]
   plug Tesla.Middleware.JSON
 
