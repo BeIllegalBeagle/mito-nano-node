@@ -16,12 +16,13 @@ defmodule MitoNode.Client do
       "all_local_accounts": true,
       "accounts": [
         "nano_16c4ush661bbn2hxc6iqrunwoyqt95in4hmw6uw7tk37yfyi77s7dyxaw8ce",
-        "nano_3dmtrrws3pocycmbqwawk6xs7446qxa36fcncush4s1pejk16ksbmakis32c"
+        "nano_3dmtrrws3pocycmbqwawk6xs7446qxa36fcncush4s1pejk16ksbmakis32c",
+        "nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a"
       ]
     }
   } |> Jason.encode
 
-    cast(__MODULE__, message)
+    WebSockex.cast(__MODULE__, message)
   end
 
   def handle_cast(msg, state) do
