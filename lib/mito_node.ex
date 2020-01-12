@@ -12,7 +12,7 @@ defmodule MitoNode do
       {MitoNode.Client, ["random WebSockex message"]}
     ]
 
-    opts = [strategy: :one_for_one, name: MitoNode.Supervisor]
+    opts = [strategy: :one_for_one]
     Supervisor.start_link(children, opts)
   end
 
