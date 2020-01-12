@@ -8,11 +8,11 @@ defmodule MitoNode.Client do
   def sub() do
 
     {:ok, message} = %{
-    "action": "subscribe",
-    "topic": "confirmation",
-    "options": %{
-      "all_local_accounts": true,
-      "accounts": [
+    "action" => "subscribe",
+    "topic" => "confirmation",
+    "options" => %{
+      "all_local_accounts" => true,
+      "accounts" => [
         "nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a"
       ]
     }

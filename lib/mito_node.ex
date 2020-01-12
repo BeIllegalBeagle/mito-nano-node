@@ -9,7 +9,7 @@ defmodule MitoNode do
       supervisor(MitoNode.Endpoint, []),
       Tortoise.Supervisor.child_spec([strategy: :one_for_one, name: BlockListener]),
       worker(Mongo, [[name: :mongo, database: "mqttCollection", pool: DBConnection.Poolboy]]),
-      # {MitoNode.Client, ["random WebSockex message"]}
+      {MitoNode.Client, ["random WebSockex message"]}
     ]
 
     opts = [strategy: :one_for_one]
