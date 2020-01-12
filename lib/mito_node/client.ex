@@ -2,7 +2,7 @@ defmodule MitoNode.Client do
   use WebSockex
 
   def start_link(state) do
-    WebSockex.start_link("ws://localhost", __MODULE__, state)
+    WebSockex.start_link("ws://localhost:7078", __MODULE__, state)
   end
 
   def handle_connect(conn, state) do
