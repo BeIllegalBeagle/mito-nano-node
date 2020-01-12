@@ -5,13 +5,7 @@ defmodule MitoNode.Client do
     WebSockex.start_link("ws://localhost:7078", __MODULE__, state)
   end
 
-  def init(parent, name, conn, module, module_state, opts) do
-    IO.inspect("very verse every rhme")
-    {:ok, parent}
-  end
-
-  def handle_connect(conn, state) do
-    IO.inspect("connected to the node!!!")
+  def sub() do
 
     {:ok, message} = %{
     "action": "subscribe",
@@ -25,8 +19,13 @@ defmodule MitoNode.Client do
   } |> Jason.encode
 
     IO.inspect(message)
-    
+
     WebSockex.cast(__MODULE__, message)
+  end
+
+  def handle_connect(conn, state) do
+    IO.inspect("connected to the node!!!")
+
     {:ok, state}
 
   end
