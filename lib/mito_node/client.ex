@@ -24,6 +24,8 @@ defmodule MitoNode.Client do
     }
   } |> Jason.encode
 
+    IO.inspect(message)
+    
     WebSockex.cast(__MODULE__, message)
     {:ok, state}
 
