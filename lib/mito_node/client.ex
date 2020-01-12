@@ -20,7 +20,9 @@ defmodule MitoNode.Client do
 
     IO.inspect(message)
 
-    WebSockex.cast(__MODULE__, message)
+    WebSockex.send_frame(__MODULE__, {:text, message})
+
+    # WebSockex.cast(__MODULE__, message)
   end
 
   def handle_connect(conn, state) do
@@ -42,8 +44,9 @@ defmodule MitoNode.Client do
    {:ok, state}
  end
 
- def handle_frame({:binary, frame}, state) do
+ def handle_frame({:text, frame}, state) do
    IO.inspect "Received frame"
+   IO.inspect frame
    {:ok, state}
  end
 
