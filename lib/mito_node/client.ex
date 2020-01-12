@@ -6,7 +6,7 @@ defmodule MitoNode.Client do
   end
 
   def init(parent, name, conn, module, module_state, opts) do
-
+    IO.inspect("very verse every rhme") 
     {:ok, parent}
   end
 
@@ -23,8 +23,10 @@ defmodule MitoNode.Client do
       ]
     }
   } |> Jason.encode
-  
+
     WebSockex.cast(__MODULE__, message)
+    {:ok, state}
+
   end
 
   def handle_cast(msg, state) do
