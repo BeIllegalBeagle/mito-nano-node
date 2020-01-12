@@ -2,7 +2,7 @@ defmodule MitoNode.Client do
   use WebSockex
 
   def start_link(state) do
-    WebSockex.start_link("ws://localhost:7078", __MODULE__, state)
+    WebSockex.start_link("ws://localhost:7078", __MODULE__, state, [name: MitoNano])
   end
 
   def sub() do
@@ -20,7 +20,7 @@ defmodule MitoNode.Client do
 
     IO.inspect(message)
 
-    WebSockex.send_frame(__MODULE__, {:text, message})
+    WebSockex.send_frame(MitoNano, {:text, message})
 
     # WebSockex.cast(__MODULE__, message)
   end
