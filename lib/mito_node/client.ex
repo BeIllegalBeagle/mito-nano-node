@@ -37,7 +37,7 @@ defmodule MitoNode.Client do
   end
 
   def handle_disconnect(%{reason: reason}, state) do
-   Logger.warn "websocket closing: #{inspect reason}"
+   # Logger.warn "websocket closing: #{inspect reason}"
    {:ok, state}
  end
 
