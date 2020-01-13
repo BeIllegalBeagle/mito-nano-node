@@ -31,8 +31,6 @@ defmodule MitoNode.Client do
       }
     } |> Jason.encode
 
-    start_mongo()
-
     WebSockex.send_frame(MitoNano, {:text, message})
 
   end
