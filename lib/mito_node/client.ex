@@ -15,9 +15,14 @@ defmodule MitoNode.Client do
   end
 
   defp all_users_accounts() do
-    all_users()
-    |> Enum.flat_map(fn x -> x["accounts"] end)
-    |> Enum.uniq
+    case all_users() do
+      [] ->
+        ["nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a",
+        "nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a"]
+      users ->
+        users |> Enum.flat_map(fn x -> x["accounts"] end)
+        |> Enum.uniq
+    end
   end
 
   def socket_subs() do
