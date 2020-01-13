@@ -6,11 +6,10 @@ defmodule MitoNode.Client do
   end
 
   def start_mongo() do
-
+    {:ok, cn} = Mongo.start_link(name: MitoMongo, url: "mongodb://localhost:27017/mqttCollection")
   end
 
   def all_users() do
-    {:ok, cn} = Mongo.start_link(name: MitoMongo, url: "mongodb://localhost:27017/mqttCollection")
     Mongo.aggregate(MitoMongo, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
@@ -31,6 +30,7 @@ defmodule MitoNode.Client do
       "accounts" => all_users_accounts()
     }
   } |> Jason.encode
+  start_mongo()
 
     WebSockex.send_frame(MitoNano, {:text, message})
 

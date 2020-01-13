@@ -25,6 +25,7 @@ defmodule MitoNode do
 
   def setup_bridge() do
     nano_node_mqtt_start()
+    MitoNode.Client.socket_subs()
   end
 
   def nano_node_mqtt_start() do
