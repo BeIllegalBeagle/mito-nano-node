@@ -13,7 +13,7 @@ defmodule MitoNode.Mqtt do
         "accounts" => []}
 
        {:ok, _bson} = Mongo.insert_one(:mongo, "users", wallet_info, pool: DBConnection.Poolboy)
-       %{"success" => "true"}
+       %{"success" => true}
     else
       false ->
         %{"error" => "choose different wallet ID"}

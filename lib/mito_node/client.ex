@@ -31,7 +31,7 @@ defmodule MitoNode.Client do
 
   def handle_connect(conn, state) do
     IO.inspect("connected to the node!!!")
-    message = socket_subs()
+    {:ok, message} = socket_subs()
     IO.inspect(message)
     WebSockex.send_frame(MitoNano, {:text, message})
 
