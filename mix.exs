@@ -17,7 +17,7 @@ defmodule MitoNode.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {MitoNode, []},
-     applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext, :tortoise, :tesla, :mongodb, :websockex]]
+     applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext, :tortoise, :tesla, :mongodb, :websockex, :poolboy]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,6 +32,7 @@ defmodule MitoNode.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:poolboy, ">= 0.0.0"},
       {:jason, ">= 1.0.0"},
       {:tesla, "~> 1.2.0"},
       {:mongodb, ">= 0.0.0"},

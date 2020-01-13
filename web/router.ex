@@ -7,7 +7,7 @@ defmodule MitoNode.Router do
 
   scope "/api", MitoNode do
     pipe_through :api
-    post "/genrate-work", UserController, :get_work
+    post "/genrate-work", APIController, :get_work
 
   end
 end

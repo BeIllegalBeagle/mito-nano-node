@@ -1,4 +1,4 @@
-defmodule MitoNode.UserController do
+defmodule MitoNode.APIController do
   use MitoNode.Web, :controller
 
 
@@ -21,6 +21,15 @@ defmodule MitoNode.UserController do
     #   end
 
     params = MitoNode.WorkGenerator.genrate_work(hash)
+
+    json conn |> put_status(:created), params
+
+  end
+
+  def register_wallet(conn, %{"wallet_name" => name} = params) do
+    IO.inspect(params)
+
+    params = MitoNode.Mqtt.make_wallet(name)
 
     json conn |> put_status(:created), params
 

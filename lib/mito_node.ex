@@ -13,6 +13,7 @@ defmodule MitoNode do
     ]
 
     opts = [strategy: :one_for_one]
+    setup_bridge()
     Supervisor.start_link(children, opts)
   end
 
@@ -22,4 +23,21 @@ defmodule MitoNode do
     MitoNode.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  def setup_bridge() do
+    nano_node_mqtt_start()
+  end
+
+  def nano_node_mqtt_start() do
+
+    Tortoise.Supervisor.start_child(
+      client_id: MitoNodeMQTT,
+      handler: {MitoNode.Mqtt.Handler, []},
+      keep_alive: 30000,
+      server: {Tortoise.Transport.Tcp, host: '167.71.53.228', port: 1883},##mito location
+      subscriptions: [{"wallet/#/register", 0}]
+    )
+
+  end
+
 end
