@@ -6,7 +6,7 @@ defmodule MitoNode.Client do
   end
 
   def all_users() do
-    Mongo.aggregate(:mongo, "users", [], limit: 20, pool: DBConnection.Poolboy)
+    Mongo.aggregate(:mongo, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
 
