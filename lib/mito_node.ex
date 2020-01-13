@@ -12,9 +12,8 @@ defmodule MitoNode do
     ]
 
     opts = [strategy: :one_for_one]
-    red = Supervisor.start_link(children, opts)
     setup_bridge()
-    red
+    Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -26,7 +25,6 @@ defmodule MitoNode do
 
   def setup_bridge() do
     nano_node_mqtt_start()
-    MitoNode.Client.socket_subs()
   end
 
   def nano_node_mqtt_start() do

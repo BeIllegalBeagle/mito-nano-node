@@ -22,15 +22,16 @@ defmodule MitoNode.Client do
 
   def socket_subs() do
 
-    {:ok, message} = %{
-    "action" => "subscribe",
-    "topic" => "confirmation",
-    "options" => %{
-      "all_local_accounts" => false,
-      "accounts" => all_users_accounts()
-    }
-  } |> Jason.encode
-  start_mongo()
+      {:ok, message} = %{
+      "action" => "subscribe",
+      "topic" => "confirmation",
+      "options" => %{
+        "all_local_accounts" => false,
+        "accounts" => all_users_accounts()
+      }
+    } |> Jason.encode
+
+    start_mongo()
 
     WebSockex.send_frame(MitoNano, {:text, message})
 
