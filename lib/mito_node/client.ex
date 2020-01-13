@@ -10,8 +10,8 @@ defmodule MitoNode.Client do
   end
 
   def all_users() do
-    {:ok, cn} = Mongo.start_link(url: "mongodb://localhost:27017/mqttCollection")
-    Mongo.aggregate(:cn, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
+    {:ok, cn} = Mongo.start_link(:mito_mongo url: "mongodb://localhost:27017/mqttCollection")
+    Mongo.aggregate(:mito_mongo, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
 
