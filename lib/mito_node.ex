@@ -5,10 +5,9 @@ defmodule MitoNode do
     import Supervisor.Spec
 
     children = [
-
       supervisor(MitoNode.Endpoint, []),
       Tortoise.Supervisor.child_spec([strategy: :one_for_one, name: BlockListener]),
-      worker(Mongo, [[name: :mongo, database: "mqttCollection", pool: DBConnection.Poolboy, url: "mongodb://localhost:27017/mqttCollection"]]),
+      # worker(Mongo, [[name: :mongo, database: "mqttCollection", pool: DBConnection.Poolboy, url: "mongodb://localhost:27017/mqttCollection"]]),
       {MitoNode.Client, ["random WebSockex message"]}
     ]
 
