@@ -5,8 +5,13 @@ defmodule MitoNode.Client do
     WebSockex.start_link("ws://localhost:7078", __MODULE__, state, [name: MitoNano])
   end
 
+  def start_mongo() do
+
+  end
+
   def all_users() do
-    Mongo.aggregate(:mongo, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
+    {:ok, cn} = Mongo.start_link(url: "mongodb://localhost:27017/mqttCollection")
+    Mongo.aggregate(cn, "mqttUsers", [], limit: 20, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
 
