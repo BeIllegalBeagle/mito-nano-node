@@ -27,16 +27,13 @@ defmodule MitoNode.Client do
     }
   } |> Jason.encode
 
+    WebSockex.send_frame(MitoNano, {:text, message})
+
   end
 
   def handle_connect(conn, state) do
     IO.inspect("connected to the node!!!")
-    {:ok, message} = socket_subs()
-    IO.inspect(message)
-    WebSockex.send_frame(MitoNano, {:text, message})
-
     {:ok, state}
-
   end
 
   def handle_cast(msg, state) do
