@@ -35,7 +35,7 @@ defmodule MitoNode.Mixfile do
      {:poolboy, ">= 0.0.0"},
       {:jason, ">= 1.0.0"},
       {:tesla, "~> 1.2.0"},
-      {:mongodb, ">= 0.0.0"},
+      {:mongodb, ">= 0.4.9"},
       {:tortoise, "~> 0.9"},
       {:websockex, "~> 0.4.2"}
     ]
