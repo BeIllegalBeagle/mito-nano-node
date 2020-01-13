@@ -12,8 +12,10 @@ defmodule MitoNode do
     ]
 
     opts = [strategy: :one_for_one]
+    red = Supervisor.start_link(children, opts)
+    IO.inspect red
     setup_bridge()
-    Supervisor.start_link(children, opts)
+    :ok
   end
 
   # Tell Phoenix to update the endpoint configuration
