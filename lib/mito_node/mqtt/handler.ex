@@ -47,6 +47,7 @@ defmodule MitoNode.Mqtt.Handler do
 
 
   def handle_message(topic, payload, state) do
+    IO.inspect(payload) 
     {:ok, oo} = Jason.decode(payload)
 
     if topic |> List.last == "register" do

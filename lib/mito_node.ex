@@ -33,8 +33,8 @@ defmodule MitoNode do
       client_id: MitoNodeMQTT,
       handler: {MitoNode.Mqtt.Handler, []},
       keep_alive: 30000,
-      server: {Tortoise.Transport.Tcp, host: '167.71.53.228', port: 1883},##mito location
-      subscriptions: [{"wallet/#/register", 0}]
+      server: {Tortoise.Transport.Tcp, host: '127.0.0.1', port: 1883},##mito location
+      subscriptions: [{"wallet/+/register", 2}]
     )
 
   end
