@@ -86,7 +86,7 @@ defmodule MitoNode.Client do
 
    %{"message" => block, "hash" => hash} = block_message
    %{"link_as_account" => recieving_account} = block
-   IO.inspect("decoded stuff #{recieving_account}") 
+   IO.inspect("decoded stuff #{recieving_account}")
     recieent = all_users() |> Enum.find(fn user -> Enum.member(recieving_account, user["accounts"]) end)
     IO.inspect recieent
     if recieent == [] do
@@ -99,7 +99,7 @@ defmodule MitoNode.Client do
  end
 
  def publish_recieve_nofication(wallet, {account, hash}) do
-
+   IO.inspect "pubbing for wallet #{wallet}"
   {:ok, msg} = Jason.encode(%{"account" => account, "hash" => hash})
 
   case Tortoise.publish_sync(MitoNodeMQTT, "wallet/#{wallet}/block/state", msg, qos: 2, timeout: 2000) do
