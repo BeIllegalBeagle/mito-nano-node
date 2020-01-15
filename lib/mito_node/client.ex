@@ -40,6 +40,28 @@ defmodule MitoNode.Client do
 
   end
 
+  def socket_resubs() do
+
+    {:ok, unmessage} = %{
+      "action" => "unsubscribe",
+      "topic" => "confirmation"
+    } |> Jason.encode
+
+    WebSockex.send_frame(MitoNano, {:text, unmessage})
+
+    {:ok, message} = %{
+      "action" => "subscribe",
+      "topic" => "confirmation",
+      "options" => %{
+        "all_local_accounts" => false,
+        "accounts" => all_users_accounts()
+      }
+    } |> Jason.encode
+
+    WebSockex.send_frame(MitoNano, {:text, message})
+
+  end
+
   def handle_connect(conn, state) do
     IO.inspect("connected to the node!!!")
     {:ok, state}
@@ -67,7 +89,7 @@ defmodule MitoNode.Client do
    %{"link_as_account" => recieving_account} = block
 
     recieent = all_users() |> Enum.find(fn user -> Enum.member(recieving_account, user["accounts"]) end)
-
+    IO.inspect recieent
     if recieent == [] do
       ##do nothing
     else

@@ -34,6 +34,9 @@ defmodule MitoNode.Mqtt do
                  %{"wallet": wallet},
                  %{"$set": %{"accounts": accounts ++ wallet_acc["accounts"]}},
                   pool: DBConnection.Poolboy)
+
+      MitoNode.Client.socket_resubs()
+      
      else
        false ->
          %{"error" => "wallet Id not found"}

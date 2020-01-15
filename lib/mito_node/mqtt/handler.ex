@@ -47,14 +47,15 @@ defmodule MitoNode.Mqtt.Handler do
 
 
   def handle_message(topic, payload, state) do
-    IO.inspect(payload) 
+    IO.inspect(payload)
     {:ok, oo} = Jason.decode(payload)
 
     if topic |> List.last == "register" do
       IO.inspect(topic)
+      [_, wallet_id, _] = topic
       {:ok, accounts} = Jason.decode(payload)
 
-      MitoNode.Mqtt.add_accounts(accounts["accounts"])
+      MitoNode.Mqtt.add_accounts(topic, accounts["accounts"])
 
     else
       ## random message
