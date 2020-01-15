@@ -17,8 +17,7 @@ defmodule MitoNode.Client do
   defp all_users_accounts() do
     case all_users() do
       [] ->
-        ["nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a",
-        "nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a"]
+        ["nano_1qzfp3op48im348qdybmrheu9dogtopj1jyioguq9pyo5i7mkqgo4jaswp4a"]
       users ->
         users |> Enum.flat_map(fn x -> x["accounts"] end)
         |> Enum.uniq
@@ -87,7 +86,7 @@ defmodule MitoNode.Client do
 
    %{"message" => block, "hash" => hash} = block_message
    %{"link_as_account" => recieving_account} = block
-
+   IO.inspect("decoded stuff #{recieving_account}") 
     recieent = all_users() |> Enum.find(fn user -> Enum.member(recieving_account, user["accounts"]) end)
     IO.inspect recieent
     if recieent == [] do

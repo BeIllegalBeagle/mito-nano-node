@@ -28,7 +28,6 @@ defmodule MitoNode.Mqtt do
 
     with cursor != [] do
 
-      IO.inspect cursor
       wallet_acc = cursor |> List.first
 
      {:ok, _new_meesages_map} = Mongo.update_one(MitoMongo, "mqttUsers",
