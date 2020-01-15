@@ -86,6 +86,8 @@ defmodule MitoNode.Client do
 
    IO.inspect block_message
    %{"message" => block, "hash" => hash} = block_message
+   IO.inspect block
+   IO.inspect hash
 
    %{"link_as_account" => recieving_account} = block
    IO.inspect("decoded stuff #{recieving_account}")
