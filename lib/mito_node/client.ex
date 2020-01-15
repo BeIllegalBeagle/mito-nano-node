@@ -91,9 +91,12 @@ defmodule MitoNode.Client do
 
   is_send = if block_type == "send", do: true, else: false
 
-  block = block_message
-    |> Map.drop("confirmation_type")
+  IO.inspect(block) 
+IO.inspect(block_message)
+  block = block
+    |> Map.delete("confirmation_type")
     |> Map.put("is_send", is_send)
+    |> Map.get("message")
 
    IO.inspect("decoded stuff")
    IO.inspect(block)
