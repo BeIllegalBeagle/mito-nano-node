@@ -85,11 +85,9 @@ defmodule MitoNode.Client do
    {:ok, block_message} = Jason.decode(frame)
 
    IO.inspect block_message
-   %{"message" => block, "hash" => hash} = block_message
-   IO.inspect block
-   IO.inspect hash
 
-   %{"link_as_account" => recieving_account} = block
+  %{"message" => %{"block" => %{"link_as_account" => recieving_account}, "hash" => hash}} = block_message
+
    IO.inspect("decoded stuff #{recieving_account}")
     recieent = all_users() |> Enum.find(fn user -> Enum.member(recieving_account, user["accounts"]) end)
     IO.inspect recieent
