@@ -20,7 +20,7 @@ defmodule MitoNode.WorkGenerator do
     {:ok, work_opts} =  %{
     "action": "work_generate",
     "hash": hash,
-    "difficulty": diffivluty
+    "difficulty": difficulty
     } |> Jason.encode
 
     # {:ok, response} = post("", %{action: "work_generate", hash: "#{hash}", difficulty: diffivluty})
