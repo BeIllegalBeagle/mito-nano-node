@@ -86,31 +86,40 @@ defmodule MitoNode.Client do
 
    IO.inspect block_message
 
-  %{"message" => %{"block" => %{"link_as_account" => recieving_account}, "hash" => hash}} = block_message
+  %{"message" => block} = block_message
+  %{"message" => %{"block" => %{"sub_type" => block_type, "link_as_account" => recieving_account}}} = block_message
 
-   IO.inspect("decoded stuff #{recieving_account}")
-    recieent = all_users() |> Enum.filter(fn user -> Enum.member?(user["accounts"], recieving_account) end)
-    IO.inspect recieent
-    if recieent == [] do
-      ##do nothing
-    else
-      Enum.each(recieent, fn user -> publish_recieve_nofication(user["wallet"], {recieving_account, hash}) end)
-    end
+  is_send = if block_type == "send", do: true, else: false
+
+  block = block
+    |> Map.drop("confirmation_type")
+    |> Map.put("is_send", is_send)
+
+   IO.inspect("decoded stuff")
+   IO.inspect(block)
+
+   recieent = all_users() |> Enum.filter(fn user -> Enum.member?(user["accounts"], recieving_account) end)
+   IO.inspect recieent
+   if recieent == [] do
+     ##do nothing
+   else
+     Enum.each(recieent, fn user -> publish_recieve_nofication(user["wallet"], block) end)
+   end
 
    {:ok, state}
  end
 
- def publish_recieve_nofication(wallet, {account, hash}) do
+ def publish_recieve_nofication(wallet, block) do
    IO.inspect "pubbing for wallet #{wallet}"
-  {:ok, msg} = Jason.encode(%{"account" => account, "hash" => hash})
+  {:ok, msg} = Jason.encode(block)
 
   case Tortoise.publish_sync(MitoNodeMQTT, "wallet/#{wallet}/block/state", msg, qos: 2, timeout: 2000) do
     :ok ->
       :done
     {:error, :timeout} ->
-      __MODULE__.publish_recieve_nofication(wallet, {account, hash})
+      __MODULE__.publish_recieve_nofication(wallet, block)
     {:error, :canceled} ->
-      __MODULE__.publish_recieve_nofication(wallet, {account, hash})
+      __MODULE__.publish_recieve_nofication(wallet, block)
   end
 end
 
