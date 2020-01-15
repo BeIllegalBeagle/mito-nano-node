@@ -80,11 +80,8 @@ defmodule MitoNode.Client do
 
  def handle_frame({:text, frame}, state) do
    IO.inspect "Received frame"
-   IO.inspect frame
 
    {:ok, block_message} = Jason.decode(frame)
-
-   IO.inspect block_message
 
   %{"message" => block} = block_message
   %{"block" => %{"subtype" => block_type, "link_as_account" => recieving_account}} = block
@@ -99,6 +96,7 @@ defmodule MitoNode.Client do
    IO.inspect("decoded stuff")
    IO.inspect(block)
 
+   IO.inspect(recieving_account)
    recieent = all_users() |> Enum.filter(fn user -> Enum.member?(user["accounts"], recieving_account) end)
    IO.inspect recieent
    if recieent == [] do
