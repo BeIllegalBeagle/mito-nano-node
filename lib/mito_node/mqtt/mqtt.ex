@@ -23,14 +23,13 @@ defmodule MitoNode.Mqtt do
 
   def add_accounts(wallet, accounts) do
 
-    IO.inspect wallet
-    IO.inspect accounts
     cursor = Mongo.find(MitoMongo, "mqttUsers", %{"$and" => [%{wallet: wallet}]},
     limit: 20, pool: DBConnection.Poolboy) |> Enum.to_list()
 
     with cursor != [] do
 
-      [wallet_acc] = cursor
+      IO.inspect cursor
+      wallet_acc = cursor |> List.first
 
      {:ok, _new_meesages_map} = Mongo.update_one(MitoMongo, "mqttUsers",
                  %{"wallet": wallet},
