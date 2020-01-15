@@ -20,7 +20,7 @@ defmodule MitoNode.APIController do
     #     ##log this
     #   end
 
-    params = MitoNode.WorkGenerator.genrate_work(hash)
+    {:ok, params} = MitoNode.WorkGenerator.genrate_work(hash)
 
     json conn |> put_status(:created), params
 

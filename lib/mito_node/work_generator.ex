@@ -7,16 +7,41 @@ defmodule MitoNode.WorkGenerator do
 
   def genrate_work(hash) do
 
-    {:ok, diff} = post("", %{action: "active_difficulty"})
+    # {:ok, diff} = post("", %{action: "active_difficulty"})
+    # %{"network_current" => diffivluty} = diff.body
 
-    %{"network_current" => diffivluty} = diff.body
+    {:ok, opts} =  %{
+    "action": "active_difficulty",
+    } |> Jason.encode
 
-    {:ok, response} = post("", %{action: "work_generate", hash: "#{hash}", difficulty: diffivluty})
+    {result, _invalid_number} = System.cmd("curl", ["-d", opts, "[::1]:7076"])
+    {:ok, %{"network_current" => difficulty}} = Jason.decode(result)
 
-    IO.inspect response.body
-    {:ok, response.body}
+    {:ok, work_opts} =  %{
+    "action": "work_generate",
+    "hash": hash,
+    "difficulty": diffivluty
+    } |> Jason.encode
 
-    %{"work" => work} = response.body
+    # {:ok, response} = post("", %{action: "work_generate", hash: "#{hash}", difficulty: diffivluty})
+
+    {result, _invalid_number} = System.cmd("curl", ["-d", work_opts, "[::1]:7076"])
+    with {:ok, %{"work" => work}} <- result |> Jason.decode do
+      {:ok, %{"work" => work}}
+    else
+
+    end
+
+    # IO.inspect response.body
+
+    # {:ok, response.body}
+
+    # %{"work" => work} = response.body
   end
+
+
+
+  {result, _invalid_number} = System.cmd("curl", ["-d", work_opts, "[::1]:7076"])
+
 
 end
