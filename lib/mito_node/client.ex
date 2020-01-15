@@ -87,7 +87,7 @@ defmodule MitoNode.Client do
    IO.inspect block_message
 
   %{"message" => block} = block_message
-  %{"message" => %{"block" => %{"sub_type" => block_type, "link_as_account" => recieving_account}}} = block_message
+  %{"block" => %{"subtype" => block_type, "link_as_account" => recieving_account}} = block
 
   is_send = if block_type == "send", do: true, else: false
 
