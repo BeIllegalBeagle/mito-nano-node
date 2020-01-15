@@ -23,6 +23,8 @@ defmodule MitoNode.Mqtt do
 
   def add_accounts(wallet, accounts) do
 
+    IO.inspect wallet
+    IO.inspect accounts
     cursor = Mongo.find(MitoMongo, "mqttUsers", %{"$and" => [%{wallet: wallet}]},
     limit: 20, pool: DBConnection.Poolboy) |> Enum.to_list()
 
@@ -36,7 +38,7 @@ defmodule MitoNode.Mqtt do
                   pool: DBConnection.Poolboy)
 
       MitoNode.Client.socket_resubs()
-      
+
      else
        false ->
          %{"error" => "wallet Id not found"}
