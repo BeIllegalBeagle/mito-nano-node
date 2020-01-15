@@ -89,7 +89,7 @@ defmodule MitoNode.Client do
   %{"message" => %{"block" => %{"link_as_account" => recieving_account}, "hash" => hash}} = block_message
 
    IO.inspect("decoded stuff #{recieving_account}")
-    recieent = all_users() |> Enum.find(fn user -> Enum.member(recieving_account, user["accounts"]) end)
+    recieent = all_users() |> Enum.find(fn user -> Enum.member(user["accounts"], recieving_account) end)
     IO.inspect recieent
     if recieent == [] do
       ##do nothing
