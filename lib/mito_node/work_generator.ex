@@ -39,9 +39,4 @@ defmodule MitoNode.WorkGenerator do
     # %{"work" => work} = response.body
   end
 
-
-
-  {result, _invalid_number} = System.cmd("curl", ["-d", work_opts, "[::1]:7076"])
-
-
 end
