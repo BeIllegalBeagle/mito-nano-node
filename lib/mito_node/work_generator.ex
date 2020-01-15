@@ -29,7 +29,8 @@ defmodule MitoNode.WorkGenerator do
     with {:ok, %{"work" => work}} <- result |> Jason.decode do
       {:ok, %{"work" => work}}
     else
-
+      {:error, message} ->
+        {:error, message}
     end
 
     # IO.inspect response.body
