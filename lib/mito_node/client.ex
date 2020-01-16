@@ -46,8 +46,6 @@ defmodule MitoNode.Client do
       "topic" => "confirmation"
     } |> Jason.encode
 
-    WebSockex.send_frame(MitoNano, {:text, unmessage})
-
     {:ok, message} = %{
       "action" => "subscribe",
       "topic" => "confirmation",
@@ -57,7 +55,15 @@ defmodule MitoNode.Client do
       }
     } |> Jason.encode
 
-    WebSockex.send_frame(MitoNano, {:text, message})
+
+    with :ok <- WebSockex.send_frame(MitoNano, {:text, unmessage}),
+      :ok <- WebSockex.send_frame(MitoNano, {:text, message})
+      do
+        :ok
+    else
+      {:error, map} ->
+        {:error, map}
+    end
 
   end
 

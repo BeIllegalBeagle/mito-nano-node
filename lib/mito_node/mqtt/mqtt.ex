@@ -35,7 +35,12 @@ defmodule MitoNode.Mqtt do
                  %{"$set": %{"accounts": accounts ++ wallet_acc["accounts"]}},
                   pool: DBConnection.Poolboy)
 
-      MitoNode.Client.socket_resubs()
+      case MitoNode.Client.socket_resubs() do
+        :ok ->
+          :ok
+        {:error, map} ->
+          msg
+      end
 
      else
        false ->

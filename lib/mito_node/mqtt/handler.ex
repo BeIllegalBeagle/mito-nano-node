@@ -55,7 +55,7 @@ defmodule MitoNode.Mqtt.Handler do
       [_, wallet_id, _] = topic
       {:ok, accounts} = Jason.decode(payload)
 
-      MitoNode.Mqtt.add_accounts(wallet_id, accounts["accounts"])
+      :ok = MitoNode.Mqtt.add_accounts(wallet_id, accounts["accounts"])
 
     else
       ## random message
