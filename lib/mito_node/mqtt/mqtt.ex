@@ -39,7 +39,7 @@ defmodule MitoNode.Mqtt do
         :ok ->
           :ok
         {:error, map} ->
-          msg
+          map
       end
 
      else
