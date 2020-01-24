@@ -13,7 +13,14 @@ defmodule MitoNode do
 
     opts = [strategy: :one_for_one]
     setup_bridge()
-    Supervisor.start_link(children, opts)
+    with {:ok, pid} <- Supervisor.start_link(children, opts),
+         {:ok, _pid} <- MitoNode.Client.start_mongo,
+          :ok <- MitoNode.Client.socket_subs do
+      {:ok, pid}
+    else
+      {:error, reason} ->
+        IO.inspect(reason)
+    end
   end
 
   # Tell Phoenix to update the endpoint configuration
